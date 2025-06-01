@@ -87,4 +87,4 @@ Future improvements:
 ## Caveats
 
 - Since I don't have an active AWS account to test out this code, the pipeline fails during the init step as it wants to check whether my profile for AWS works.
-- This also means that the code is not fully tested
+- This also means that the code is not fully tested in a live environment, however it's a sketch of how to orchestrate and create infrastructure as code in a cloud environment with Github as git provider.
