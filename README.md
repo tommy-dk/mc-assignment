@@ -76,6 +76,6 @@ If anyone of these are in breach of defined standards, the pipeline stops and th
 Future improvements:
 - Use [pre-commit](https://pre-commit.com/) for the ci steps, so bugs and formatting are caught on the developers machine.
 - Setup SSO between the Github repo and AWS, so there's seamless integration and trust between an IAM role in AWS and then the pipeline assumes this role for full authentication and authorization.
-- Use [AWS blueprints])(https://github.com/aws-ia/terraform-aws-eks-blueprints) for creating battle-tested infrastructure in AWS.
+- Use [AWS blueprints](https://github.com/aws-ia/terraform-aws-eks-blueprints) for creating battle-tested infrastructure in AWS.
 - Create infrastructure based on a more "gitops" approach, by eg. commiting and pushing a tfvars file into a folder and a corresponding cluster appears automatically.
-- Bootstrap the Kubernetes cluster with ArgoCD or FluxCD and automatically inject/bootstrap a root application, that will install all needed software components needed on the EKS cluster (cert-manager, external-dns, nginx, etc)
+- Bootstrap the Kubernetes cluster with [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) or [FluxCD](https://fluxcd.io/) and automatically inject/bootstrap a root application, that will install all needed software components needed on the EKS cluster (cert-manager, external-dns, nginx, etc) in a true GitOps process. This typically requires a deeper look into what is cloud resources, kubernetes resources and workload resources.
