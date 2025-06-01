@@ -75,6 +75,7 @@ If anyone of these are in breach of defined standards, the pipeline stops and th
 
 Future improvements:
 - Use [pre-commit](https://pre-commit.com/) for the ci steps, so bugs and formatting are caught on the developers machine.
+- Create and use a [devcontainer](https://containers.dev/) for a unified developer experience 
 - Setup SSO between the Github repo and AWS, so there's seamless integration and trust between an IAM role in AWS and then the pipeline assumes this role for full authentication and authorization.
 - Use [AWS blueprints](https://github.com/aws-ia/terraform-aws-eks-blueprints) for creating battle-tested infrastructure in AWS.
 - Create infrastructure based on a more "gitops" approach, by eg. commiting and pushing a tfvars file into a folder and a corresponding cluster appears automatically.
