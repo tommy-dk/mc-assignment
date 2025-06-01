@@ -19,9 +19,9 @@ module "vpc" {
   tags = var.tags
 }
 
-module "eks_blueprints" {
-  source  = "aws-ia/eks-blueprints/aws"
-  version = "4.0.2"
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 20.34"
 
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
@@ -44,7 +44,7 @@ module "eks_blueprints" {
   tags = var.tags
 }
 
-module "eks_blueprints_addons" {
+module "eks_addons" {
   source  = "aws-ia/eks-blueprints-addons/aws"
   version = "1.1.0"
 
