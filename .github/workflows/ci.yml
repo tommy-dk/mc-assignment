@@ -1,0 +1,63 @@
+name: "Terraform CI"
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+env:
+  AWS_REGION: eu-west-1
+  ENV: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+
+jobs:
+  terraform:
+    name: Lint, Format, Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.1
+
+      - name: Terraform Format
+        run: make fmt
+
+      - name: Terraform Validate
+        run: make validate
+
+      - name: TFLint
+        uses: terraform-linters/setup-tflint@v4
+
+      - name: Run TFLint
+        run: tflint --init && make lint
+
+      - name: tfsec (Security scan)
+        uses: aquasecurity/tfsec-action@v1.0.0
+
+      - name: Checkov (Policy check)
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: .
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Terraform Init
+        run: make init
+
+      - name: Terraform Plan
+        run: make plan ENV=${{ env.ENV }}
+
+      - name: Terraform Apply (only on main)
+        if: github.ref_name == 'main'
+        run: make apply ENV=prod
