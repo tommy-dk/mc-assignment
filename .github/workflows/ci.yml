@@ -28,6 +28,9 @@ jobs:
       - name: Terraform Format
         run: make fmt
 
+      - name: Terraform Init
+        run: make init
+
       - name: Terraform Validate
         run: make validate
 
@@ -51,9 +54,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-
-      - name: Terraform Init
-        run: make init
 
       - name: Terraform Plan
         run: make plan ENV=${{ env.ENV }}
